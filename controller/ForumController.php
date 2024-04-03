@@ -6,6 +6,7 @@ use App\AbstractController;
 use App\ControllerInterface;
 use Model\Managers\CategoryManager;
 use Model\Managers\TopicManager;
+use Model\Managers\UserManager;
 
 class ForumController extends AbstractController implements ControllerInterface{
 
@@ -22,6 +23,20 @@ class ForumController extends AbstractController implements ControllerInterface{
             "meta_description" => "Liste des catégories du forum",
             "data" => [
                 "categories" => $categories
+            ]
+        ];
+    }
+
+    public function listUsers() {
+        echo "test";
+
+        $userManager = new UserManager();
+        $users = $userManager->findAll(["nickname", "DESC"]);
+        return [
+            "view" => VIEW_DIR."forum/listUsers.php",
+            "meta_description" => "Liste des utilisateurs du forum",
+            "data" => [
+                "nicknames" => $users
             ]
         ];
     }
