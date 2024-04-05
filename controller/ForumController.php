@@ -28,15 +28,17 @@ class ForumController extends AbstractController implements ControllerInterface{
     }
 
     public function listUsers() {
-        echo "test";
-
+        // créer une nouvelle instance de UserManager
         $userManager = new UserManager();
+        // récupérer la liste de tous les utilisateurs grâce à la méthode findAll de Manager.php, triés par nickname
         $users = $userManager->findAll(["nickname", "DESC"]);
+
+        // le controller communique avec la vue "listUsers" (view) pour lui envoyer la liste des utilisateurs (data)
         return [
             "view" => VIEW_DIR."forum/listUsers.php",
             "meta_description" => "Liste des utilisateurs du forum",
             "data" => [
-                "nicknames" => $users
+                "nicknames" => $users   
             ]
         ];
     }

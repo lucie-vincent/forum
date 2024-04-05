@@ -1,6 +1,6 @@
 <?php
-    $users = $result["data"]['users'];
-    var_dump($users);
+    $users = $result["data"]['nicknames'];
+    // var_dump($users);
 ?>
 
 <h1>Liste des utilisateurs</h1>
