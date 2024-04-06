@@ -1,6 +1,6 @@
 <?php
     $category = $result["data"]['category']; 
-    $topics = $result["data"]['topics']; 
+    $topics = $result["data"]['topics'];
 ?>
 
 <h1>Liste des topics</h1>
