@@ -13,4 +13,7 @@ class CategoryManager extends Manager{
     public function __construct(){
         parent::connect();
     }
+
+    
+
 }

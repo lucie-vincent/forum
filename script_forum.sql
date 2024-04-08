@@ -2,7 +2,7 @@
 -- Hôte:                         127.0.0.1
 -- Version du serveur:           8.0.30 - MySQL Community Server - GPL
 -- SE du serveur:                Win64
--- HeidiSQL Version:             12.6.0.6765
+-- HeidiSQL Version:             12.1.0.6537
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -19,31 +19,56 @@
 CREATE DATABASE IF NOT EXISTS `forummvc_v2` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `forummvc_v2`;
 
--- Listage de la structure de la table forummvc_v2. category
+-- Listage de la structure de table forummvc_v2. category
 CREATE TABLE IF NOT EXISTS `category` (
   `id_category` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`id_category`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table forummvc_v2.category : ~3 rows (environ)
-INSERT INTO `category` (`id_category`, `name`) VALUES
-	(1, 'Catégorie 1'),
-	(2, 'Catégorie 2'),
-	(3, 'Catégorie 3');
+-- Les données exportées n'étaient pas sélectionnées.
 
--- Listage de la structure de la table forummvc_v2. user
+-- Listage de la structure de table forummvc_v2. post
+CREATE TABLE IF NOT EXISTS `post` (
+  `id_post` int NOT NULL AUTO_INCREMENT,
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `creationDate` date NOT NULL,
+  `topic_id` int NOT NULL DEFAULT '0',
+  `user_id` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_post`) USING BTREE,
+  KEY `topic_id` (`topic_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Les données exportées n'étaient pas sélectionnées.
+
+-- Listage de la structure de table forummvc_v2. topic
+CREATE TABLE IF NOT EXISTS `topic` (
+  `id_topic` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `creationDate` date NOT NULL,
+  `isLocked` tinyint NOT NULL DEFAULT '0',
+  `category_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`id_topic`),
+  KEY `category_id` (`category_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Les données exportées n'étaient pas sélectionnées.
+
+-- Listage de la structure de table forummvc_v2. user
 CREATE TABLE IF NOT EXISTS `user` (
   `id_user` int NOT NULL AUTO_INCREMENT,
-  `nickname` varchar(50) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id_user`)
+  `nickname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0',
+  `email` varchar(255) NOT NULL DEFAULT '0',
+  `password` varchar(255) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_user`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `nickname` (`nickname`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table forummvc_v2.user : ~3 rows (environ)
-INSERT INTO `user` (`id_user`, `nickname`) VALUES
-	(1, 'User 1'),
-	(2, 'User 2'),
-	(3, 'User 3');
+-- Les données exportées n'étaient pas sélectionnées.
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
