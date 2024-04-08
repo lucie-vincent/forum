@@ -49,12 +49,6 @@ class ForumController extends AbstractController implements ControllerInterface{
     // ------------------------------ categories ------------------------------
 
     public function addCategoryForm() {
-        // on prépare les données à insérer ?
-        // $data =["name" => ];
-
-        // on ajoute les données dans la base de données grâce à la méthode add du Manager
-        // $category = $categoryManager->add($data);
-        
         // le controller communique avec la vue "addCategory"
         return [
             "view" => VIEW_DIR."forum/addCategory.php",
@@ -66,51 +60,69 @@ class ForumController extends AbstractController implements ControllerInterface{
         }
         
     public function addCategory() {
-    
         // on crée une nouvelle instance de CategoryManager
         $categoryManager = new CategoryManager();
 
+        // on filtre les données saisies dans le formulaire
         $categoryName = filter_input(INPUT_POST, "category", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
+        
+        // si le filtre est validé
         if($categoryName){
-            $categoryManager->add(["name" => $categoryName]);
             
+            // on redirige vers l'index des catégories
             $this->redirectTo("forum","index");
         }
-
+        
     }
-
+    
     //----------------------- topics-------------------
-
+    
     public function listTopicsByCategory($id) {
-
+        
         $topicManager = new TopicManager();
         $categoryManager = new CategoryManager();
         $category = $categoryManager->findOneById($id);
         $topics = $topicManager->findTopicsByCategory($id);
-
+        
         return [
             "view" => VIEW_DIR."forum/listTopics.php",
             "meta_description" => "Liste des topics par catégorie : ".$category,
             "data" => [
                 "category" => $category,
                 "topics" => $topics
-            ]
-        ];
-    }
-
-    public function addTopic () {
-
-        // le controller communique avec la vue addTopic
-        return [
-            "view" => VIEW_DIR."forum/addTopic.php",
-            "meta_description" => "Ajouter un topic",
-            "data" => [
-                // "category" => $category,
-                // "topics" => $topics
-            ]
-        ];
-    }
+                ]
+            ];
+        }
+        
+        public function addTopicForm() {
+            // le controller communique avec la vue addTopic
+            return [
+                "view" => VIEW_DIR."forum/addTopic.php",
+                "meta_description" => "Ajouter un topic",
+                "data" => [
+                    // "category" => $category,
+                    // "topics" => $topics
+                    ]
+                ];
+            }
+            
+            public function addTopic() {
+                // on crée une nouvelle instance de TopicManager
+                $topicManager = new TopicManager();
+                
+                // on filtre les données saisies dans le formulaire
+                $topicTitle = filter_input(INPUT_POST, "topic", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                
+                // si le filtre est validé
+                if($topicTitle){
+                    // on utilise la fonction add(), en argument, on précise que le nom de la colonne dans la BDD sera = au résultat de la saisie filtrée
+                    $topicManager->add([
+                        "title" => $topicName,
+                        "" =>
+                    ]);
+                }
+                
+            }
 
 
     // ----------------------- posts -----------------------------

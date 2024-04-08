@@ -11,7 +11,7 @@ foreach($topics as $topic ){ ?>
 <?php } ?>
 
 <br>
-<a href="index.php?ctrl=forum&action=addTopic">Ajouter un topic</a>
+<a href="index.php?ctrl=forum&action=addTopicForm">Ajouter un topic</a>
 
 <br>
 <a href="index.php?ctrl=forum&action=addPost">Ajouter un post</a>
