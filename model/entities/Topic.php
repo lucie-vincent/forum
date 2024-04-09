@@ -11,6 +11,7 @@ final class Topic extends Entity{
 
     private $id;
     private $title;
+    private $content;
     private $user;
     private $category;
     private $creationDate;
@@ -51,6 +52,23 @@ final class Topic extends Entity{
      */ 
     public function setTitle($title){
         $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * Get the value of content
+     */ 
+    public function getContent(){
+        return $this->content;
+    }
+
+    /**
+     * Set the value of content
+     *
+     * @return  self
+     */ 
+    public function setContent($content){
+        $this->title = $content;
         return $this;
     }
 

@@ -1,13 +1,14 @@
 <h1>Ajouter un topic</h1>
 
-<form action="index.php?ctrl=forum&action=addTopic&id=" method="POST">
+<form action="index.php?ctrl=forum&action=addTopic&id=<?=$id?>" method="POST">
 <label for="topic">Nom du topic :</label>    
 <input type="text" name="topic" id="topic">
-<!-- <input type="hidden" name="id_category" id="id_category" value=""> -->
 
-<!-- <label for="category">Nom de la catégorie :</label>    
-<input type="text" name="category" id="category"> -->
+<br>
+<label for="content">Message :</label>
+<textarea name="content" id="content" cols="30" rows="10"></textarea>
 
- <br>
+
+<br>
 <input type="submit" value="Créer le topic">
 </form>

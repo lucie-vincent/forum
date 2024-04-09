@@ -4,7 +4,9 @@
     // var_dump($posts);
 ?>
 
-<h1>Liste des Posts de <?= $topic->getTitle() ?></h1>
+<h1>Posts de <?= $topic->getTitle() ?></h1>
+
+<p><?= $topic->getContent() ?></p>
 
 <?php
 

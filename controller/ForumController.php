@@ -84,18 +84,23 @@ class ForumController extends AbstractController implements ControllerInterface{
     //----------------------- topics-------------------
     
     // lister les topics
-    public function listTopics(){
-        // créer une nouvelle instance de TopicManager
+    public function listTopics($id){
+        // créer une nouvelle instance de TopicManager + CategoryManager
         $topicManager = new TopicManager();
+        $categoryManager = new CategoryManager();
+
         // récupérer la liste des topics grâce à la méthode findAll() de Manager
         $topics = $topicManager->findAll(["title", "DESC"]);
+        //  on trouve une catégorie par son id pour pouvoir ensuite utiliser l'id pour ajouter un topic dans une catégorie
+        $category = $categoryManager->findOneById($id);
 
         // le controller communique avec la vue listTopics pour lui communiquer les informations
         return [
             "view" => VIEW_DIR."forum/listTopics.php",
             "meta_description" => "Liste des topics",
             "data" => [
-                "titles" => $topics
+                "titles" => $topics,
+                "category" => $category
             ]
         ];
     }
@@ -110,7 +115,8 @@ class ForumController extends AbstractController implements ControllerInterface{
         $category = $categoryManager->findOneById($id);
         // findTopicByCategory récupérer tous les posts d'un topic spécifique (par son id)
         $topics = $topicManager->findTopicsByCategory($id);
-        // var_dump($category);die;
+
+        // var_dump($topics);die;
         // le controller communique avec la vue listTopicsByCategory pour lui communiquer les informations
         return [
             "view" => VIEW_DIR."forum/listTopicsByCategory.php",
@@ -123,9 +129,8 @@ class ForumController extends AbstractController implements ControllerInterface{
     }
         
     // faire le lien vers le formulaire d'ajout de topic
+    // on passe en argument l'id qui est l'id de la catégorie : ainsi on peut le récupérer par la suite
     public function addTopicForm($id) {
-
-        
         // le controller communique avec la vue addTopic
         return [
             "view" => VIEW_DIR."forum/addTopic.php",
@@ -141,24 +146,23 @@ class ForumController extends AbstractController implements ControllerInterface{
     public function addTopic($id) {
         // on crée une nouvelle instance de TopicManager
         $topicManager = new TopicManager();
-     
 
-
-        
         // on filtre les données saisies dans le formulaire
         $topicTitle = filter_input(INPUT_POST, "topic", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        // $id_category = filter_input(INPUT_POST, "id_category", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $topicContent = filter_input(INPUT_POST, "content", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         
         // si le filtre est validé
         if($topicTitle){
             // on utilise la fonction add(), en argument, on précise que le nom de la colonne dans la BDD sera = au résultat de la saisie filtrée
+            //  on ajoute la colonne category_id et on précise que le résultat est = à $id (l'argument de la méthode addTopic)
             $topicManager->add([
                 "title" => $topicTitle,
-                "category_id" => $id
+                "category_id" => $id,
+                "content" => $topicContent
             ]);
 
             //  on redirige vers la liste des topics
-            $this->redirectTo("forum","listTopics");
+            $this->redirectTo("forum","listTopicsByCategory");
         }       
     }
 
@@ -174,7 +178,7 @@ class ForumController extends AbstractController implements ControllerInterface{
         $topic = $topicManager->findOneById($id);
 
         return [
-            "view" => VIEW_DIR."forum/listPosts.php",
+            "view" => VIEW_DIR."forum/listPostsByTopic.php",
             "meta_description" => "Liste des posts par topic : ".$topic,
             "data" => [
                 "posts" => $posts,
