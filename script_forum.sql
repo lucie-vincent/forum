@@ -16,8 +16,8 @@
 
 
 -- Listage de la structure de la base pour forummvc_v2
-CREATE DATABASE IF NOT EXISTS `forummvc_v2` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `forummvc_v2`;
+CREATE DATABASE IF NOT EXISTS `lucie_forum` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `lucie_forum`;
 
 -- Listage de la structure de table forummvc_v2. category
 CREATE TABLE IF NOT EXISTS `category` (

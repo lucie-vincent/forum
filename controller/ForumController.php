@@ -55,9 +55,9 @@ class ForumController extends AbstractController implements ControllerInterface{
             "meta_description" => "Ajouter une catégorie",
             "data" => [
                 // "name" => $name 
-                ]
-            ];
-        }
+            ]
+        ];
+    }
         
     public function addCategory() {
         // on crée une nouvelle instance de CategoryManager
@@ -68,7 +68,10 @@ class ForumController extends AbstractController implements ControllerInterface{
         
         // si le filtre est validé
         if($categoryName){
-            
+            // on utilise la fonction add(), en argument, on précise que le nom de la colonne dans la BDD sera = au résultat de la saisie filtrée
+            $categoryManager->add([
+                "name" => $categoryName
+            ]);
             // on redirige vers l'index des catégories
             $this->redirectTo("forum","index");
         }
@@ -77,6 +80,22 @@ class ForumController extends AbstractController implements ControllerInterface{
     
     //----------------------- topics-------------------
     
+    public function listTopics(){
+        // créer une nouvelle instance de TopicManager
+        $topicManager = new TopicManager();
+        // récupérer la liste des topics grâce à la méthode findAll() de Manager
+        $topics = $topicManager->findAll(["title", "DESC"]);
+
+        // le controller communique avec la vue listTopics pour lui communiquer les informations
+        return [
+            "view" => VIEW_DIR."forum/listTopics.php",
+            "meta_description" => "Liste des topics",
+            "data" => [
+                "titles" => $topics
+            ]
+        ];
+    }
+
     public function listTopicsByCategory($id) {
         
         $topicManager = new TopicManager();
@@ -85,44 +104,42 @@ class ForumController extends AbstractController implements ControllerInterface{
         $topics = $topicManager->findTopicsByCategory($id);
         
         return [
-            "view" => VIEW_DIR."forum/listTopics.php",
+            "view" => VIEW_DIR."forum/listTopicsByCategory.php",
             "meta_description" => "Liste des topics par catégorie : ".$category,
             "data" => [
                 "category" => $category,
                 "topics" => $topics
-                ]
-            ];
-        }
+            ]
+        ];
+    }
         
-        public function addTopicForm() {
-            // le controller communique avec la vue addTopic
-            return [
-                "view" => VIEW_DIR."forum/addTopic.php",
-                "meta_description" => "Ajouter un topic",
-                "data" => [
-                    // "category" => $category,
-                    // "topics" => $topics
-                    ]
-                ];
-            }
-            
-            public function addTopic() {
-                // on crée une nouvelle instance de TopicManager
-                $topicManager = new TopicManager();
-                
-                // on filtre les données saisies dans le formulaire
-                $topicTitle = filter_input(INPUT_POST, "topic", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                
-                // si le filtre est validé
-                if($topicTitle){
-                    // on utilise la fonction add(), en argument, on précise que le nom de la colonne dans la BDD sera = au résultat de la saisie filtrée
-                    $topicManager->add([
-                        "title" => $topicName,
-                        "" =>
-                    ]);
-                }
-                
-            }
+    public function addTopicForm() {
+        // le controller communique avec la vue addTopic
+        return [
+            "view" => VIEW_DIR."forum/addTopic.php",
+            "meta_description" => "Ajouter un topic",
+            "data" => [
+                // "category" => $category,
+                // "topics" => $topics
+            ]
+        ];
+    }
+        
+    public function addTopic($id) {
+        // on crée une nouvelle instance de TopicManager
+        $topicManager = new TopicManager();
+        
+        // on filtre les données saisies dans le formulaire
+        $topicTitle = filter_input(INPUT_POST, "topic", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        
+        // si le filtre est validé
+        if($topicTitle){
+            // on utilise la fonction add(), en argument, on précise que le nom de la colonne dans la BDD sera = au résultat de la saisie filtrée
+            $topicManager->add([
+                "title" => $topicTittle
+            ]);
+        }       
+    }
 
 
     // ----------------------- posts -----------------------------
