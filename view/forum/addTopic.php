@@ -1,6 +1,6 @@
 <h1>Ajouter un topic</h1>
 
-<form action="index.php?ctrl=forum&action=addTopic" method="POST">
+<form action="index.php?ctrl=forum&action=addTopic&id=" method="POST">
 <label for="topic">Nom du topic :</label>    
 <input type="text" name="topic" id="topic">
 <!-- <input type="hidden" name="id_category" id="id_category" value=""> -->
