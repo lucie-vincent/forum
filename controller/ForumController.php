@@ -30,6 +30,7 @@ class ForumController extends AbstractController implements ControllerInterface{
 
     // -------------------------- utilisateurs -----------------------
 
+    // lister les utilisateurs
     public function listUsers() {
         // créer une nouvelle instance de UserManager
         $userManager = new UserManager();
@@ -48,6 +49,7 @@ class ForumController extends AbstractController implements ControllerInterface{
 
     // ------------------------------ categories ------------------------------
 
+    // faire le lien vers le formulaire
     public function addCategoryForm() {
         // le controller communique avec la vue "addCategory"
         return [
@@ -58,7 +60,8 @@ class ForumController extends AbstractController implements ControllerInterface{
             ]
         ];
     }
-        
+    
+    // ajouter une catégorie
     public function addCategory() {
         // on crée une nouvelle instance de CategoryManager
         $categoryManager = new CategoryManager();
@@ -80,6 +83,7 @@ class ForumController extends AbstractController implements ControllerInterface{
     
     //----------------------- topics-------------------
     
+    // lister les topics
     public function listTopics(){
         // créer une nouvelle instance de TopicManager
         $topicManager = new TopicManager();
@@ -96,13 +100,18 @@ class ForumController extends AbstractController implements ControllerInterface{
         ];
     }
 
+    // lister les topics par catégories
     public function listTopicsByCategory($id) {
-        
+        // créer de nouvelles instances de Topic/CategoryManager
         $topicManager = new TopicManager();
         $categoryManager = new CategoryManager();
+
+        // utiliser les méthodes findOneById pour trouver une catégorie par son id 
         $category = $categoryManager->findOneById($id);
+        // findTopicByCategory récupérer tous les posts d'un topic spécifique (par son id)
         $topics = $topicManager->findTopicsByCategory($id);
-        
+        // var_dump($category);die;
+        // le controller communique avec la vue listTopicsByCategory pour lui communiquer les informations
         return [
             "view" => VIEW_DIR."forum/listTopicsByCategory.php",
             "meta_description" => "Liste des topics par catégorie : ".$category,
@@ -113,7 +122,10 @@ class ForumController extends AbstractController implements ControllerInterface{
         ];
     }
         
-    public function addTopicForm() {
+    // faire le lien vers le formulaire d'ajout de topic
+    public function addTopicForm($id) {
+
+        
         // le controller communique avec la vue addTopic
         return [
             "view" => VIEW_DIR."forum/addTopic.php",
@@ -125,25 +137,35 @@ class ForumController extends AbstractController implements ControllerInterface{
         ];
     }
         
+    //  ajouter un topic
     public function addTopic($id) {
         // on crée une nouvelle instance de TopicManager
         $topicManager = new TopicManager();
+     
+
+
         
         // on filtre les données saisies dans le formulaire
         $topicTitle = filter_input(INPUT_POST, "topic", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        // $id_category = filter_input(INPUT_POST, "id_category", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         
         // si le filtre est validé
         if($topicTitle){
             // on utilise la fonction add(), en argument, on précise que le nom de la colonne dans la BDD sera = au résultat de la saisie filtrée
             $topicManager->add([
-                "title" => $topicTittle
+                "title" => $topicTitle,
+                "category_id" => $id
             ]);
+
+            //  on redirige vers la liste des topics
+            $this->redirectTo("forum","listTopics");
         }       
     }
 
 
     // ----------------------- posts -----------------------------
 
+    // lister les posts par topic
     public function listPostsByTopic($id) {
         $postManager = new PostManager();
         $posts = $postManager->findPostsByTopics($id);
@@ -162,7 +184,8 @@ class ForumController extends AbstractController implements ControllerInterface{
 
     }
 
-    public function addPost() {
+    // faire le lien vers le formulaire d'ajout de post
+    public function addPostForm() {
 
         return [
             "view" => VIEW_DIR."forum/addPost.php",

@@ -8,4 +8,7 @@
 <?php
 foreach($topics as $topic){ ?>
     <p><a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>"><?= $topic->getTitle()?></a></p>
-<?php }
+<?php } ?>
+
+<br>
+<a href="index.php?ctrl=forum&action=addTopicForm">Ajouter un topic</a>

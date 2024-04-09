@@ -6,12 +6,17 @@
 <h1>Liste des topics de <?= $category->getName() ?></h1>
 
 <?php
-foreach($topics as $topic ){ ?>
+if($topics == NULL){
+    echo "Il n'y a pas de topics dans cette catégorie";
+} else {
+    foreach($topics as $topic ){ ?>
     <p><a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>"><?= $topic ?></a> par <?= $topic->getUser() ?></p>
-<?php } ?>
+<?php }
+} ?>
+
 
 <br>
-<a href="index.php?ctrl=forum&action=addTopicForm">Ajouter un topic</a>
+<a href="index.php?ctrl=forum&action=addTopicForm&id=<?= $category->getId() ?>">Ajouter un topic</a>
 
 <br>
 <a href="index.php?ctrl=forum&action=addPost">Ajouter un post</a>

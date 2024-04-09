@@ -15,3 +15,6 @@ if($posts == NULL) {
         <p><a href="#"><?= $post ?></a> par <?= $post->getUser() ?> - Date : <?= $post->getCreationDate() ?></p> <?php 
     } 
 }
+?>
+<br>
+<a href="index.php?ctrl=forum&action=addPostForm">Rédiger un post</a>
