@@ -26,4 +26,4 @@ if($posts == NULL) {
 }
 ?>
 <br>
-<a href="index.php?ctrl=forum&action=addPostForm">Rédiger un post</a>
+<a href="index.php?ctrl=forum&action=addPostForm&id=<?=$topic->getId()?>">Répondre</a>

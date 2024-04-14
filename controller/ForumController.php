@@ -11,12 +11,13 @@ use Model\Managers\PostManager;
 
 class ForumController extends AbstractController implements ControllerInterface{
 
+    // lister toutes les catégories
     public function index() {
         
         // créer une nouvelle instance de CategoryManager
         $categoryManager = new CategoryManager();
         // récupérer la liste de toutes les catégories grâce à la méthode findAll de Manager.php (triés par nom)
-        $categories = $categoryManager->findAll(["name", "DESC"]);
+        $categories = $categoryManager->findAll(["name", "ASC"]);
 
         // le controller communique avec la vue "listCategories" (view) pour lui envoyer la liste des catégories (data)
         return [
@@ -149,7 +150,7 @@ class ForumController extends AbstractController implements ControllerInterface{
 
         // on filtre les données saisies dans le formulaire
         $topicTitle = filter_input(INPUT_POST, "topic", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $topicContent = filter_input(INPUT_POST, "content", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        // $topicContent = filter_input(INPUT_POST, "content", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         
         // si le filtre est validé
         if($topicTitle){
@@ -157,8 +158,8 @@ class ForumController extends AbstractController implements ControllerInterface{
             //  on ajoute la colonne category_id et on précise que le résultat est = à $id (l'argument de la méthode addTopic)
             $topicManager->add([
                 "title" => $topicTitle,
-                "category_id" => $id,
-                "content" => $topicContent
+                "category_id" => $id
+                // "content" => $topicContent
             ]);
 
             //  on redirige vers la liste des topics
@@ -189,16 +190,43 @@ class ForumController extends AbstractController implements ControllerInterface{
     }
 
     // faire le lien vers le formulaire d'ajout de post
-    public function addPostForm() {
+    public function addPostForm($id) {
 
         return [
             "view" => VIEW_DIR."forum/addPost.php",
             "meta_description" => "Ajouter un post ",
             "data" => [
-                // "posts" => $posts,
-                // "topic" => $topic
+                "topic_id" => $id
             ]
         ];
+    }
+
+    public function addPost($id) {
+        // on crée une nouvelle instance de PostManager, qui communique avec la base de données
+        $postManager = new PostManager();
+        
+        // on définit la valeur de user_id et de creationDate
+        $user_id = 0; // A remplacer par le résultat de $_SESSION['user']['id']
+        $creationDate = date("Ymd"); // Date du jour format AAAAMMJJ
+
+        // on filtre les données saisies dans le formulaire
+        $postContent = filter_input(INPUT_POST, "content", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        // si le filtre est validé
+        if($postContent){
+            // on utilise la fonction add() en préparant les données pour correspondre au contenu attendu par la BDD
+            $postManager->add([
+                "content" => $postContent,
+                "creationDate" => $creationDate,
+                "topic_id" => $id,
+                "user_id" => $user_id
+            ]);
+
+            // on fait la redirection
+            $this->redirectTo("forum","listPostsByTopic", $id);
+
+        } 
+
     }
 
 }

@@ -4,9 +4,9 @@
 <label for="topic">Nom du topic :</label>    
 <input type="text" name="topic" id="topic">
 
-<br>
+<!-- <br>
 <label for="content">Message :</label>
-<textarea name="content" id="content" cols="30" rows="10"></textarea>
+<textarea name="content" id="content" cols="30" rows="10"></textarea> -->
 
 
 <br>
