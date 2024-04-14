@@ -14,7 +14,14 @@ if($posts == NULL) {
     echo " <p> Il n'y a pas de post associé à " .  $topic->getTitle() . "  </p> ";
 } else {
     foreach($posts as $post){ ?>
-        <p><a href="#"><?= $post ?></a> par <?= $post->getUser() ?> - Date : <?= $post->getCreationDate() ?></p> <?php 
+        <div>
+            <span>
+                <strong><?= $post->getUser() ?></strong> - Date : <?= $post->getCreationDate() ?>
+            </span>
+
+            <p><?= $post ?></p> 
+        </div>
+<?php 
     } 
 }
 ?>
