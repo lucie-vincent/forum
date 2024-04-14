@@ -16,9 +16,9 @@ if($topics == NULL){
 
 
 <br>
-<a href="index.php?ctrl=forum&action=addTopicForm&id=<?= $category->getId() ?>">Ajouter un topic</a>
+<a href="index.php?ctrl=forum&action=addTopicForm&id=<?= $category->getId() ?>">Créer un topic</a>
 
 <br>
-<a href="index.php?ctrl=forum&action=addPost">Ajouter un post</a>
+<!-- <a href="index.php?ctrl=forum&action=addPost">Ajouter un post</a> -->
 
 

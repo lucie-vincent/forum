@@ -132,39 +132,63 @@ class ForumController extends AbstractController implements ControllerInterface{
     // faire le lien vers le formulaire d'ajout de topic
     // on passe en argument l'id qui est l'id de la catégorie : ainsi on peut le récupérer par la suite
     public function addTopicForm($id) {
+        // créer de nouvelles instances de CategoryManager
+        $categoryManager = new CategoryManager();
+
+        // utiliser la méthode findOneById pour trouver une catégorie par son id 
+        $category = $categoryManager->findOneById($id);
+
+
+
         // le controller communique avec la vue addTopic
         return [
             "view" => VIEW_DIR."forum/addTopic.php",
             "meta_description" => "Ajouter un topic",
             "data" => [
-                // "category" => $category,
-                // "topics" => $topics
+                "category" => $category
             ]
         ];
     }
         
     //  ajouter un topic
     public function addTopic($id) {
-        // on crée une nouvelle instance de TopicManager
+        // on crée une nouvelle instance de TopicManager et de PostManager
         $topicManager = new TopicManager();
+        $postManager = new PostManager();
+
+        // on définit la valeur de creationDate et de isLocked
+        $creationDate = date("Ymd"); // Date du jour format AAAAMMJJ
+        $isLocked = 0;
+        $user_id = 0; // A remplacer par le résultat de $_SESSION['user']['id']
+
 
         // on filtre les données saisies dans le formulaire
         $topicTitle = filter_input(INPUT_POST, "topic", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        // $topicContent = filter_input(INPUT_POST, "content", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $topicPost = filter_input(INPUT_POST, "post", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         
-        // si le filtre est validé
-        if($topicTitle){
+        // si le filtre est validé, on ajoute le topic dans la catégorie
+        if($topicTitle && $topicPost){
             // on utilise la fonction add(), en argument, on précise que le nom de la colonne dans la BDD sera = au résultat de la saisie filtrée
-            //  on ajoute la colonne category_id et on précise que le résultat est = à $id (l'argument de la méthode addTopic)
-            $topicManager->add([
+            // on ajoute la colonne category_id et on précise que le résultat est = à $id (l'argument de la méthode addTopic)
+            $addedTopic_id = $topicManager->add([
                 "title" => $topicTitle,
-                "category_id" => $id
-                // "content" => $topicContent
+                "creationDate" => $creationDate,
+                "isLocked" => $isLocked,
+                "category_id" => $id,
+                "user_id" => $user_id
+            ]);
+            
+            $postManager->add([
+                "content" => $topicPost,
+                "creationDate" => $creationDate,
+                "topic_id" => $addedTopic_id,
+                "user_id" => $user_id
             ]);
 
             //  on redirige vers la liste des topics
-            $this->redirectTo("forum","listTopicsByCategory");
-        }       
+            $this->redirectTo("forum","listPostsByTopic", $addedTopic_id);
+        }
+
     }
 
 

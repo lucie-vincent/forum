@@ -1,12 +1,17 @@
-<h1>Ajouter un topic</h1>
+<?php
+$category = $result["data"]['category']; 
+
+?>
+
+<h1><?= $category->getName()?> >> Créer un topic</h1>
 
 <form action="index.php?ctrl=forum&action=addTopic&id=<?=$id?>" method="POST">
-<label for="topic">Nom du topic :</label>    
+<label for="topic">Titre du topic :</label>    
 <input type="text" name="topic" id="topic">
 
-<!-- <br>
-<label for="content">Message :</label>
-<textarea name="content" id="content" cols="30" rows="10"></textarea> -->
+<br>
+<label for="post">Message :</label>
+<textarea name="post" id="post" cols="30" rows="10"></textarea>
 
 
 <br>
