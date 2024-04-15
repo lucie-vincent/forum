@@ -11,6 +11,7 @@ foreach($categories as $category){ ?>
 
 <br>
 <a href="index.php?ctrl=forum&action=addCategoryForm">Ajouter une catégorie</a>
+<!-- <a href="index.php?ctrl=forum&action=updateCategoryForm">Modifier une catégorie</a> -->
 
 
   

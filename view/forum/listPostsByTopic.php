@@ -19,7 +19,7 @@ if($posts == NULL) {
                 <strong><?= $post->getUser() ?></strong> - Date : <?= $post->getCreationDate() ?>
             </span>
 
-            <p><?= $post ?></p> 
+            <p><?= $post ?> - <a href="index.php?ctrl=forum&action=updatePostForm&id=<?=$post->getId()?>">Modifier</a></p> 
         </div>
 <?php 
     } 

@@ -27,4 +27,19 @@ class PostManager extends Manager{
             $this->className
         );
     }
+
+    // pour modifier un post
+    public function updatePosts($data){
+        
+        // Préparer la requête SQL d'update
+        $sql = "UPDATE ".$this->tableName." p
+        SET content = :content
+        WHERE P.id_post = :id";
+
+        // Exécuter la requête d'update avec les paramètres
+        DAO::update($sql, [
+            'content' => $data["content"],
+            'id' => $data["id_post"]
+        ]);
+    }
 }

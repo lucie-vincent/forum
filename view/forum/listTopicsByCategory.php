@@ -10,7 +10,11 @@ if($topics == NULL){
     echo "Il n'y a pas de topics dans cette catégorie";
 } else {
     foreach($topics as $topic ){ ?>
-    <p><a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>"><?= $topic->getTitle() ?></a> par <?= $topic->getUser() ?></p>
+    <p>
+        <a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>"><?= $topic->getTitle() ?></a> 
+        par <?= $topic->getUser() ?>
+        <a href="index.php?ctrl=forum&action=updateTopicForm"> - Modifier </a>
+    </p>
 <?php }
 } ?>
 

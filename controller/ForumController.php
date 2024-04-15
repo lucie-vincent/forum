@@ -29,7 +29,10 @@ class ForumController extends AbstractController implements ControllerInterface{
         ];
     }
 
+    // -----------------------------------------------------------
     // -------------------------- utilisateurs -----------------------
+    // -----------------------------------------------------------
+
 
     // lister les utilisateurs
     public function listUsers() {
@@ -48,7 +51,10 @@ class ForumController extends AbstractController implements ControllerInterface{
         ];
     }
 
+    // -----------------------------------------------------------------------
     // ------------------------------ categories ------------------------------
+    // ------------------------------------------------------------------------
+
 
     // faire le lien vers le formulaire
     public function addCategoryForm() {
@@ -82,7 +88,10 @@ class ForumController extends AbstractController implements ControllerInterface{
         
     }
     
+    // -----------------------------------------------------------
     //----------------------- topics-------------------
+    // -----------------------------------------------------------
+
     
     // lister les topics
     public function listTopics($id){
@@ -191,8 +200,25 @@ class ForumController extends AbstractController implements ControllerInterface{
 
     }
 
+    public function updateTopicForm($id){
+        $topicManager = new TopicManager();
+        $topic = $topicManager->findOneById($id);
 
+        return [
+            "view" => VIEW_DIR."forum/updateTopic.php",
+            "meta_description" => "Modifier un topic ",
+            "data" => [
+                "topic" => $topic
+            ]
+        ];
+
+
+    }
+
+    // -----------------------------------------------------------
     // ----------------------- posts -----------------------------
+    // -----------------------------------------------------------
+
 
     // lister les posts par topic
     public function listPostsByTopic($id) {
@@ -250,6 +276,43 @@ class ForumController extends AbstractController implements ControllerInterface{
             $this->redirectTo("forum","listPostsByTopic", $id);
 
         } 
+
+    }
+
+    public function updatePostForm($id) {
+        $postManager = new PostManager();
+        $post = $postManager->findOneById($id);
+
+        return [
+            "view" => VIEW_DIR."forum/updatePost.php",
+            "meta_description" => "Modifier un post ",
+            "data" => [
+                "id_post" => $id,
+                "post" => $post
+            ]
+        ];
+    }
+
+    public function updatePost($id){
+        // on crée une nouvelle instance de PostManager, qui communique avec la base de données
+        $postManager = new PostManager();
+        // on récupère un post (avec l'id, le topic etc..)
+        $post = $postManager->findOneById($id);
+        // avec le chaînage on récupère le topic, puis l'id du topic afin de faire la redirection par la suite
+        $id_topic = $post->getTopic()->getId();
+
+        // on filtre les données saisies dans le formulaire
+        $postContent = filter_input(INPUT_POST, "content", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        
+        // si le filtre est validé
+        if($postContent){
+            // on utilise la fonction update()
+            $postManager->updatePosts(["id_post" => $id, "content" =>$postContent]);    
+            // var_dump($postContent);die;
+
+            // on fait la redirection
+            $this->redirectTo("forum","listPostsByTopic", $id_topic);
+        }
 
     }
 
