@@ -211,8 +211,30 @@ class ForumController extends AbstractController implements ControllerInterface{
                 "topic" => $topic
             ]
         ];
+    }
 
+    public function updateTopic($id) {
+        // on crée une nouvelle instance de TopicManager, qui communique avec la base de données
+        $topicManager = new TopicManager();
 
+        // // on récupère un topic (avec l'id, la catégorie etc..)
+        $topic = $topicManager->findOneById($id);
+        // // avec le chaînage on récupère la catégorie, puis l'id de la catégorie afin de faire la redirection par la suite
+        $id_category = $topic->getCategory()->getId();
+
+        // on filtre les données saisies dans le formulaire
+        $topicTitle = filter_input(INPUT_POST, "topic", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        
+        // si le filtre est validé
+        if($topicTitle){
+            // on utilise la fonction updateTopics()
+            $topicManager->updateTopics(["id_topic" => $id, "title" => $topicTitle]);
+            // var_dump($topicTitle);die;
+
+            // on fait la redirection
+            $this->redirectTo("forum", "listTopicsByCategory", $id_category);
+        }
+    
     }
 
     // -----------------------------------------------------------
@@ -306,8 +328,8 @@ class ForumController extends AbstractController implements ControllerInterface{
         
         // si le filtre est validé
         if($postContent){
-            // on utilise la fonction update()
-            $postManager->updatePosts(["id_post" => $id, "content" =>$postContent]);    
+            // on utilise la fonction updatePosts()
+            $postManager->updatePosts(["id_post" => $id, "content" => $postContent]);    
             // var_dump($postContent);die;
 
             // on fait la redirection

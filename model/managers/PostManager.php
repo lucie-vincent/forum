@@ -34,7 +34,7 @@ class PostManager extends Manager{
         // Préparer la requête SQL d'update
         $sql = "UPDATE ".$this->tableName." p
         SET content = :content
-        WHERE P.id_post = :id";
+        WHERE p.id_post = :id";
 
         // Exécuter la requête d'update avec les paramètres
         DAO::update($sql, [

@@ -6,8 +6,6 @@
 
 <h1>Posts de <?= $topic->getTitle() ?></h1>
 
-<p><?= $topic->getContent() ?></p>
-
 <?php
 
 if($posts == NULL) {

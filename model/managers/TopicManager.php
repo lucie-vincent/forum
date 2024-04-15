@@ -27,4 +27,18 @@ class TopicManager extends Manager{
             $this->className
         );
     }
+
+    // modifier un topic
+    public function updateTopics($data){
+        // Préparer la requête SQL d'update
+        $sql = "UPDATE ".$this->tableName." t
+        SET title = :title
+        WHERE t.id_topic = :id";
+
+        // Exécuter la requête d'update avec les paramètres
+        DAO::update($sql, [
+            'title' => $data["title"],
+            'id' => $data["id_topic"]
+        ]);
+    }
 }

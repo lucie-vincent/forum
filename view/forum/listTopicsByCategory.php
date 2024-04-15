@@ -13,7 +13,7 @@ if($topics == NULL){
     <p>
         <a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>"><?= $topic->getTitle() ?></a> 
         par <?= $topic->getUser() ?>
-        <a href="index.php?ctrl=forum&action=updateTopicForm"> - Modifier </a>
+        <a href="index.php?ctrl=forum&action=updateTopicForm&id=<?= $topic->getId() ?>"> - Modifier </a>
     </p>
 <?php }
 } ?>
