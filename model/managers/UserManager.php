@@ -15,23 +15,22 @@ class UserManager extends Manager{
     }
 
     // récupérer l'utilisateur (par son mail)
-    // public function findUserEmail($email) {
+    public function findUserEmail($email) {
 
-    //     $sql = "SELECT * 
-    //             FROM ".$this->tableName." u 
-    //             WHERE u.email = :email";
+        $sql = "SELECT * 
+                FROM ".$this->tableName." u 
+                WHERE u.email = LOWER(:email)";
        
-    //     // la requête renvoie plusieurs enregistrements --> getMultipleResults
-    //     return  $this->getMultipleResults(
-    //         DAO::select($sql, ['id' => $id]), 
-    //         $this->className
-    //     );
+        // la requête renvoie un enregristrement -> getOneOrNullResult
+        return $this->getOneOrNullResult(
+            DAO::select($sql, ['email' => $email], false),
+            $this->className
+        );
 
-    //     // la requête renvoie un enregristrement -> getOneOrNullResult
-    //     return $this->getOneOrNullResult(
-    //         DAO::select($sql, ['email' => $email]),
-    //         $this->className
-    //     );
+    }
 
-    // }
+    // ajouter l'utilisateur en BDD
+    public function addUser(){
+        
+    }
 }
