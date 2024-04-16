@@ -14,6 +14,14 @@ class CategoryManager extends Manager{
         parent::connect();
     }
 
-    
+    // supprimer une catégorie
+    public function deleteCategories($id){
+        // préparer la requête SQL de delete
+        $sql = "DELETE FROM " .$this->tableName. " c
+        WHERE id_category = :id";
+
+        // exécuter la requête de delete avec les paramètres
+        DAO::delete($sql, ["id" => $id]);
+    }
 
 }

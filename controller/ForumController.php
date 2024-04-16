@@ -87,6 +87,23 @@ class ForumController extends AbstractController implements ControllerInterface{
         }
         
     }
+
+    public function deleteCategory($id) {
+        // on crée une nouvelle instance de CategoryManager
+        $categoryManager = new CategoryManager();
+        //  on récupère une catégorie
+        $category = $categoryManager->findOneById($id);
+
+        // on appelle la méthode deleteCategories
+        $categoryManager->deleteCategories($id);
+
+        // on lance le message de réussite
+        echo "<p>La catégorie a bien été supprimée</p>";
+
+        // on fait la redirection
+        $this->redirectTo("forum","index");
+    
+    }
     
     // -----------------------------------------------------------
     //----------------------- topics-------------------------------
@@ -236,7 +253,20 @@ class ForumController extends AbstractController implements ControllerInterface{
         }
     }
 
-    
+    public function deleteTopic($id){
+        // on crée une nouvelle instance de TopicManager
+        $topicManager = new TopicManager();
+        // on récupère un topic
+        $topic = $topicManager->findOneById($id);
+        // on récupère la catégorie pour la redirection
+        $id_category = $topic->getCategory()->getId();
+
+        // on appelle la méthode deleteTopics
+        $topicManager->deleteTopics($id);
+
+        // on fait la redirection
+        $this->redirectTo("forum", "listTopicsByCategory", $id_category);
+    }
 
     // -----------------------------------------------------------
     // ----------------------- posts -----------------------------

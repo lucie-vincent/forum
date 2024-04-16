@@ -41,4 +41,13 @@ class TopicManager extends Manager{
             'id' => $data["id_topic"]
         ]);
     }
+
+    public function deleteTopics($id){
+        // préparer la requête SQL de delete
+        $sql = "DELETE FROM ".$this->tableName." t
+        WHERE t.id_topic = :id";
+
+        // exécuter la requête de delete avec les paramètres
+        DAO::delete($sql, ["id" => $id]);
+    }
 }

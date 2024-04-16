@@ -14,6 +14,7 @@ if($topics == NULL){
         <a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>"><?= $topic->getTitle() ?></a> 
         par <?= $topic->getUser() ?>
         <a href="index.php?ctrl=forum&action=updateTopicForm&id=<?= $topic->getId() ?>"> - Modifier </a>
+        <a href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId() ?>"> - Supprimer </a>
     </p>
 <?php }
 } ?>
