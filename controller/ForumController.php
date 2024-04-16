@@ -82,6 +82,10 @@ class ForumController extends AbstractController implements ControllerInterface{
             $categoryManager->add([
                 "name" => $categoryName
             ]);
+            
+            // on lance le message de réussite
+            Session::addFlash("success", "La catégorie a bien été ajoutée!");
+            
             // on redirige vers l'index des catégories
             $this->redirectTo("forum","index");
         }
@@ -98,7 +102,7 @@ class ForumController extends AbstractController implements ControllerInterface{
         $categoryManager->deleteCategories($id);
 
         // on lance le message de réussite
-        echo "<p>La catégorie a bien été supprimée</p>";
+        Session::addFlash("success", "La catégorie a bien été supprimée!");
 
         // on fait la redirection
         $this->redirectTo("forum","index");
@@ -210,6 +214,10 @@ class ForumController extends AbstractController implements ControllerInterface{
                 "topic_id" => $addedTopic_id,
                 "user_id" => $user_id
             ]);
+            
+            // on lance le message de réussite
+            Session::addFlash("success", "Le topic a bien été crée!");
+            
 
             //  on redirige vers la liste des topics
             $this->redirectTo("forum","listPostsByTopic", $addedTopic_id);
@@ -247,6 +255,10 @@ class ForumController extends AbstractController implements ControllerInterface{
             // on utilise la fonction updateTopics()
             $topicManager->updateTopics(["id_topic" => $id, "title" => $topicTitle]);
             // var_dump($topicTitle);die;
+            
+            // on lance le message de réussite
+            Session::addFlash("success", "Le topic a bien été modifié!");
+            
 
             // on fait la redirection
             $this->redirectTo("forum", "listTopicsByCategory", $id_category);
@@ -263,7 +275,10 @@ class ForumController extends AbstractController implements ControllerInterface{
 
         // on appelle la méthode deleteTopics
         $topicManager->deleteTopics($id);
-
+        
+        // on lance le message de réussite
+        Session::addFlash("success", "Le topic a bien été supprimé!");
+        
         // on fait la redirection
         $this->redirectTo("forum", "listTopicsByCategory", $id_category);
     }
@@ -325,6 +340,9 @@ class ForumController extends AbstractController implements ControllerInterface{
                 "user_id" => $user_id
             ]);
 
+            // on lance le message de réussite
+            Session::addFlash("success", "Le post a bien été ajouté!");
+
             // on fait la redirection
             $this->redirectTo("forum","listPostsByTopic", $id);
 
@@ -363,6 +381,9 @@ class ForumController extends AbstractController implements ControllerInterface{
             $postManager->updatePosts(["id_post" => $id, "content" => $postContent]);    
             // var_dump($postContent);die;
 
+        // on lance le message de réussite
+        Session::addFlash("success", "Le post a bien été modifié!");
+
             // on fait la redirection
             $this->redirectTo("forum","listPostsByTopic", $id_topic);
         }
@@ -379,6 +400,8 @@ class ForumController extends AbstractController implements ControllerInterface{
         // on appelle la méthode deletePosts($id)
         $postManager->deletePosts($id);
 
+        // on lance le message de réussite
+        Session::addFlash("success", "Le post a bien été supprimé!");
         // on fait la redirection
         $this->redirectTo("forum", "listPostsByTopic", $id_topic);
     }
