@@ -47,8 +47,7 @@ class SecurityController extends AbstractController{
                 } else {
                     // message d'erreur : "Les mots de passe ne correspondent pas ou mot de passe trop court"
                     Session::addFlash("error", "Les mots de passe ne correspondent pas ou mot de passe trop court");
-                }
-                
+                } 
             }
         } else {
             // message d'erreur : problème de saisie dans les champs du formulaire
