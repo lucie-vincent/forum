@@ -28,7 +28,7 @@ class PostManager extends Manager{
         );
     }
 
-    // pour modifier un post
+    // modifier un post
     public function updatePosts($data){
         
         // Préparer la requête SQL d'update
@@ -41,5 +41,15 @@ class PostManager extends Manager{
             'content' => $data["content"],
             'id' => $data["id_post"]
         ]);
+    }
+
+    // supprimer un post
+    public function deletePosts($id){
+        // préparer la requête SQL de delete
+        $sql = "DELETE FROM ".$this->tableName." p
+        WHERE p.id_post = :id";
+
+        // exécuter la requête de delete avec les paramètres
+        DAO::delete($sql, ["id" => $id]);
     }
 }

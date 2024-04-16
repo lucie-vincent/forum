@@ -89,7 +89,7 @@ class ForumController extends AbstractController implements ControllerInterface{
     }
     
     // -----------------------------------------------------------
-    //----------------------- topics-------------------
+    //----------------------- topics-------------------------------
     // -----------------------------------------------------------
 
     
@@ -234,8 +234,9 @@ class ForumController extends AbstractController implements ControllerInterface{
             // on fait la redirection
             $this->redirectTo("forum", "listTopicsByCategory", $id_category);
         }
-    
     }
+
+    
 
     // -----------------------------------------------------------
     // ----------------------- posts -----------------------------
@@ -335,7 +336,21 @@ class ForumController extends AbstractController implements ControllerInterface{
             // on fait la redirection
             $this->redirectTo("forum","listPostsByTopic", $id_topic);
         }
+    }
 
+    public function deletePost($id){
+        //  on crée une nouvelle instance de PostManager, qui communique avec la base de données
+        $postManager = new PostManager();
+        // on récupère le post 
+        $post = $postManager->findOneById($id);
+        // on récupère le topic pour la redirection
+        $id_topic = $post->getTopic()->getId();
+
+        // on appelle la méthode deletePosts($id)
+        $postManager->deletePosts($id);
+
+        // on fait la redirection
+        $this->redirectTo("forum", "listPostsByTopic", $id_topic);
     }
 
 }
