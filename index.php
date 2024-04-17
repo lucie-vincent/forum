@@ -1,6 +1,7 @@
 <?php
 namespace App;
 
+
 define('DS', DIRECTORY_SEPARATOR); // le caractère séparateur de dossier (/ ou \)
 // meilleure portabilité sur les différents systêmes.
 define('BASE_DIR', dirname(__FILE__).DS); // pour se simplifier la vie
@@ -16,6 +17,7 @@ Autoloader::register();
 
 //démarre une session ou récupère la session actuelle
 session_start();
+// session_destroy();
 //et on intègre la classe Session qui prend la main sur les messages en session
 use App\Session as Session;
 

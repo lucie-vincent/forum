@@ -94,21 +94,24 @@ class SecurityController extends AbstractController{
                 
                 // si l'utilisateur existe
                 if($user){
-                    // on récupère le mot de passe dans le tableau user
-                    $hash = $user["password"];
+                    // on récupère le mot de passe dans l'objet user
+                    $hash = $user->getPassword();
                     //  on vérifie le mot de passe saisi par rapport au mdp de la bdd
                     if(password_verify($password, $hash)){
                         // on stocke en session l'intégralité des infos du user
                         $_SESSION["user"] = $user;
+                        // var_dump($_SESSION["user"]);die;
+                        
                         // on redirige l'utilisateur vers la page d'acceuil
                         $this->redirectTo("home", "index");
                     } else {
                         //  on redirige vers le login
                         $this->redirectTo("security", "login");
                         Session::addFlash("error", "Utilisateur inconnu ou mot de passe incorrect");
-
-
                     }
+                } else {
+                    $this->redirectTo("security", "login");
+                    Session::addFlash("error", "Utilisateur inconnu ou mot de passe incorrect");
                 }
             }
         // }
@@ -124,5 +127,10 @@ class SecurityController extends AbstractController{
     }
 
 
-    public function logout() {}
+    public function logout() {
+        // on supprime le tableau user qui est dans $_SESSION et on le déconnecte
+        unset($_session["user"]);
+        $this->redirectTo("security", "login");
+
+    }
 }

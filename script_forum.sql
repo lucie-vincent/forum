@@ -26,12 +26,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   PRIMARY KEY (`id_category`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table lucie_forum.category : ~4 rows (environ)
-INSERT INTO `category` (`id_category`, `name`) VALUES
-	(1, 'General'),
-	(2, 'Reviews'),
-	(3, 'Rules'),
-	(4, 'Crowdfunding');
+-- Les données exportées n'étaient pas sélectionnées.
 
 -- Listage de la structure de la table lucie_forum. post
 CREATE TABLE IF NOT EXISTS `post` (
@@ -45,13 +40,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table lucie_forum.post : ~5 rows (environ)
-INSERT INTO `post` (`id_post`, `content`, `creationDate`, `topic_id`, `user_id`) VALUES
-	(1, 'It\'s great for me, what do you think  ? Any bug detected ?', '2024-03-27', 1, 1),
-	(2, 'I\'m not that into it i have to say...', '2024-03-31', 1, 2),
-	(3, 'LOVE IT§§ So great', '2024-04-03', 2, 3),
-	(4, 'Does someone understand how this card works', '2024-04-01', 3, 2),
-	(5, 'Vindication is the worst game i\'ve played', '2024-04-14', 4, 1);
+-- Les données exportées n'étaient pas sélectionnées.
 
 -- Listage de la structure de la table lucie_forum. topic
 CREATE TABLE IF NOT EXISTS `topic` (
@@ -66,12 +55,7 @@ CREATE TABLE IF NOT EXISTS `topic` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table lucie_forum.topic : ~4 rows (environ)
-INSERT INTO `topic` (`id_topic`, `title`, `creationDate`, `isLocked`, `category_id`, `user_id`) VALUES
-	(1, 'App has been updated', '2024-04-06', 0, 1, 1),
-	(2, 'My thoughts on Pagan', '2024-02-13', 1, 2, 2),
-	(3, 'Card #10 choice ?', '2024-03-26', 0, 3, 3),
-	(4, 'Never again !!!', '2024-03-31', 0, 2, 1);
+-- Les données exportées n'étaient pas sélectionnées.
 
 -- Listage de la structure de la table lucie_forum. user
 CREATE TABLE IF NOT EXISTS `user` (
@@ -79,16 +63,13 @@ CREATE TABLE IF NOT EXISTS `user` (
   `nickname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0',
   `email` varchar(255) NOT NULL DEFAULT '0',
   `password` varchar(255) NOT NULL DEFAULT '0',
+  `role` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '["ROLE_USER"]',
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `nickname` (`nickname`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table lucie_forum.user : ~3 rows (environ)
-INSERT INTO `user` (`id_user`, `nickname`, `email`, `password`) VALUES
-	(1, 'user 1', 'user1@exemple.com', 'user1pass'),
-	(2, 'user 2', 'user2@exemple.com', 'user2pass'),
-	(3, 'user 3', 'user3@exemple.com', 'user3pass');
+-- Les données exportées n'étaient pas sélectionnées.
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

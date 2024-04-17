@@ -13,6 +13,7 @@ final class User extends Entity{
     private $nickname;
     private $email;
     private $password;
+    private $role;
 
     public function __construct($data){         
         $this->hydrate($data);        
@@ -92,6 +93,36 @@ final class User extends Entity{
     }
 
 
+    /**
+     * Get the value of role
+     */ 
+    public function getRole(){
+        return $this->role;
+    }
+
+    /**
+     * Set the value of role
+     *
+     * @return  self
+     */ 
+    public function setRole($role){
+        $this->role = $role;
+
+        return $this;
+    }
+
+
+    public function hasRole($role){
+        var_dump($this->getRole());
+        $userRole = json_decode($this->getRole());
+        
+        // var_dump($userRole);die;
+
+        $role = in_array("ROLE_ADMIN", $userRole) ? true : false;
+
+        var_dump($role);die;
+
+    }
 
     public function __toString() {
         return $this->nickname;

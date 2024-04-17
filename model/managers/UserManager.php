@@ -29,8 +29,7 @@ class UserManager extends Manager{
 
     }
 
-    // ajouter l'utilisateur en BDD
-    public function addUser(){
+    public function hasRole() {
         
     }
 }
