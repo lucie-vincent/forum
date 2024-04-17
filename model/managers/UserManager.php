@@ -15,7 +15,7 @@ class UserManager extends Manager{
     }
 
     // récupérer l'utilisateur (par son mail)
-    public function findUserEmail($email) {
+    public function findUserByEmail($email) {
 
         $sql = "SELECT * 
                 FROM ".$this->tableName." u 
