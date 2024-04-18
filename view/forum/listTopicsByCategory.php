@@ -12,7 +12,14 @@ if($topics == NULL){
     foreach($topics as $topic ){ ?>
     <p>
         <a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>"><?= $topic->getTitle() ?></a> 
-        par <?= $topic->getUser() ?>
+        par <strong>
+            <?php if($topic->getUser() == NULL) { ?>
+                Anonyme
+            <?php } else {?>
+            <?= $topic->getUser() ?>
+            <?php } ?>
+        </strong>
+            
 
         <?php if(App\Session::getUser() == $topic->getUser()) { ?>
 

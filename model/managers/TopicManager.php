@@ -28,6 +28,7 @@ class TopicManager extends Manager{
         );
     }
 
+
     // modifier un topic
     public function updateTopics($data){
         // Préparer la requête SQL d'update

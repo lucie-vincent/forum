@@ -28,6 +28,7 @@ class PostManager extends Manager{
         );
     }
 
+
     // modifier un post
     public function updatePosts($data){
         

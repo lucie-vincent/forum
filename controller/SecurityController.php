@@ -4,6 +4,8 @@ namespace Controller;
 use App\AbstractController;
 use App\ControllerInterface;
 use Model\Managers\UserManager;
+use Model\Managers\PostManager;
+use Model\Managers\TopicManager;
 use App\Session;
 
 
@@ -137,13 +139,41 @@ class SecurityController extends AbstractController{
     }
 
     public function profile() {
+        $id = Session::getUser()->getId();
+        $userManager = new UserManager();
+        $userInfos = $userManager->findOneById($id);
+        
         // le controller communique avec la vue login
         return [
             "view" => VIEW_DIR."security/profile.php",
             "meta_description" => "Voir son profil",
             "data" => [
-                // "categories" => $categories
+                "userInfos" => $userInfos
             ]
         ];
+    }
+
+    public function deleteUserConfirm($id) {
+        $id = Session::getUser()->getId();
+        $userManager = new UserManager();
+        $userInfos = $userManager->findOneById($id);
+
+        // le controller communique avec la vue login
+        return [
+            "view" => VIEW_DIR."security/deleteUserConfirm.php",
+            "meta_description" => "Confirmer suppression",
+            "data" => [
+                "userInfos" => $userInfos
+            ]
+        ];
+    }
+
+    public function deleteUser($id){
+        // supprimer l'utilisateur de la bdd
+        $id = Session::getUser()->getId();
+        $userManager = new UserManager();
+        $userManager->deleteUsers($id);
+        // le déconnecter
+        $this->logout();
     }
 }

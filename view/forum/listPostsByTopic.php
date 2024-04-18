@@ -16,7 +16,13 @@ if($posts == NULL) {
     foreach($posts as $post){ ?>
         <div>
             <span>
-                <strong><?= $post->getUser() ?></strong> - Date : <?= $post->getCreationDate() ?>
+                <strong>
+                    <?php if($post->getUser() == NULL) { ?>
+                        Anonyme
+                    <?php } else { ?> 
+                    <?= $post->getUser()?>
+                    <?php } ?>
+                </strong> - Date : <?= $post->getCreationDate() ?>
             </span>
             
             <p>

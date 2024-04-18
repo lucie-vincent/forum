@@ -29,7 +29,12 @@ class UserManager extends Manager{
 
     }
 
-    public function hasRole() {
-        
+    public function deleteUsers($id){
+        // préparer la requête SQL de delete
+        $sql = "DELETE FROM ".$this->tableName." u
+        WHERE u.id_user = :id";
+
+        // exécuter la requête de delete avec les paramètres
+        DAO::delete($sql, ["id" => $id]);
     }
 }
