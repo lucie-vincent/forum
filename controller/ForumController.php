@@ -189,7 +189,8 @@ class ForumController extends AbstractController implements ControllerInterface{
         // on définit la valeur de creationDate et de isLocked
         $creationDate = date("Ymd"); // Date du jour format AAAAMMJJ
         $isLocked = 0;
-        $user_id = 0; // A remplacer par le résultat de $_SESSION['user']['id']
+        $user = $_SESSION["user"];
+        // $user_id = 0; // A remplacer par le résultat de $_SESSION['user']['id']
 
 
         // on filtre les données saisies dans le formulaire
@@ -205,14 +206,14 @@ class ForumController extends AbstractController implements ControllerInterface{
                 "creationDate" => $creationDate,
                 "isLocked" => $isLocked,
                 "category_id" => $id,
-                "user_id" => $user_id
+                "user_id" => $user->getId()
             ]);
             
             $postManager->add([
                 "content" => $topicPost,
                 "creationDate" => $creationDate,
                 "topic_id" => $addedTopic_id,
-                "user_id" => $user_id
+                "user_id" => $user->getId()
             ]);
             
             // on lance le message de réussite

@@ -17,6 +17,7 @@ class SecurityController extends AbstractController{
         // permet la vérification de la soumission du formulaire
         // le paramètre a prendre en compte et l'attribut name dans l'input
         // if($_POST["submit"]){
+
             // filtrer la saisie des champs du formulaire d'inscription
             $nickname = filter_input(INPUT_POST, "nickname", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_VALIDATE_EMAIL);
@@ -65,7 +66,9 @@ class SecurityController extends AbstractController{
                     // "categories" => $categories
                 ]
             ];
+
         // } // suite du if($_post["submit"])
+
         // // par défaut j'affiche le formulaire de register
         // return [
         //     "view" => VIEW_DIR."security/register.php",
@@ -126,11 +129,21 @@ class SecurityController extends AbstractController{
         ];
     }
 
-
     public function logout() {
         // on supprime le tableau user qui est dans $_SESSION et on le déconnecte
-        unset($_session["user"]);
+        unset($_SESSION["user"]);
         $this->redirectTo("security", "login");
 
+    }
+
+    public function profile() {
+        // le controller communique avec la vue login
+        return [
+            "view" => VIEW_DIR."security/profile.php",
+            "meta_description" => "Voir son profil",
+            "data" => [
+                // "categories" => $categories
+            ]
+        ];
     }
 }

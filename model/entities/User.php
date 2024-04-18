@@ -113,15 +113,16 @@ final class User extends Entity{
 
 
     public function hasRole($role){
-        // var_dump($this->getRole());
-        $userRole = json_decode($this->getRole());
+        // $userRole = json_decode($this->getRole());
+        // $role = in_array("ROLE_ADMIN", $userRole) ? true : false;
+        // var_dump($this->getRole());die;
+
+        // Récupérer les rôles de l'utilisateur depuis la base de données (stockés en format JSON)
+        $roles = json_decode($this->getRole(), true);
+    
+        // Vérifier si le rôle spécifié est présent dans le tableau des rôles
+        return in_array($role, $roles);
         
-        // var_dump($userRole);die;
-
-        $role = in_array("ROLE_ADMIN", $userRole) ? true : false;
-
-        // var_dump($role);die;
-
     }
 
     public function __toString() {

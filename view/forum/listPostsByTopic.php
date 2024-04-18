@@ -1,20 +1,14 @@
 <?php
     $posts = $result["data"]['posts']; 
     $topic = $result["data"]['topic'];
-    $user = $_SESSION["user"];
-    // var_dump($posts);
 
-    
-    //  if($user->getId() === $post->getUser()->getId()) { ?>
-         <!-- } ?> -->
-    
 ?>
-
-
-
-<h1>Posts de <?= $topic->getTitle() ?></h1>
-
-<?php
+    
+    
+    
+    <h1>Posts de <?= $topic->getTitle() ?></h1>
+    
+    <?php
 
 if($posts == NULL) {
     echo " <p> Il n'y a pas de post associé à " .  $topic->getTitle() . "  </p> ";
@@ -27,12 +21,17 @@ if($posts == NULL) {
             
             <p>
                 <?= $post ?> 
-                
 
+                
+                <?php  if(App\Session::getUser() == $post->getUser()) { ?>
+                    
                     <a href="index.php?ctrl=forum&action=updatePostForm&id=<?=$post->getId()?>"> - Modifier</a>
                     
                     <a href="index.php?ctrl=forum&action=deletePost&id=<?=$post->getId()?>"> - Supprimer</a>
-                </p> 
+
+                <?php } ?>
+
+            </p> 
         </div>
 <?php 
     } 
