@@ -44,14 +44,16 @@ CREATE TABLE IF NOT EXISTS `post` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table lucie_forum.post : ~6 rows (environ)
+-- Listage des données de la table lucie_forum.post : ~8 rows (environ)
 INSERT INTO `post` (`id_post`, `content`, `creationDate`, `topic_id`, `user_id`) VALUES
 	(13, 'Tell us what you think and if you experience any bug.', '2024-04-18', 11, 1),
 	(14, 'works fine for me!', '2024-04-18', 11, 8),
 	(15, 'I&#039;ve tried this game and here&#039;s why you should too: ', '2024-04-18', 12, 8),
 	(16, 'love it as well', '2024-04-18', 12, 9),
 	(17, 'I hate it', '2024-04-18', 13, 9),
-	(18, 'i thought it was ok', '2024-04-18', 13, 8);
+	(18, 'i thought it was ok', '2024-04-18', 13, 8),
+	(19, 'nah it&#039;s not worth it imo', '2024-04-18', 13, 10),
+	(20, 'topic test anonyme', '2024-04-18', 14, 13);
 
 -- Listage de la structure de table lucie_forum. topic
 CREATE TABLE IF NOT EXISTS `topic` (
@@ -66,11 +68,12 @@ CREATE TABLE IF NOT EXISTS `topic` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table lucie_forum.topic : ~3 rows (environ)
+-- Listage des données de la table lucie_forum.topic : ~4 rows (environ)
 INSERT INTO `topic` (`id_topic`, `title`, `creationDate`, `isLocked`, `category_id`, `user_id`) VALUES
 	(11, 'App has been updated', '2024-04-18', 0, 6, 1),
 	(12, 'Pagan is the best !!', '2024-04-18', 0, 7, 8),
-	(13, 'Vindication is the worst !!', '2024-04-18', 0, 7, 9);
+	(13, 'Vindication is the worst !!', '2024-04-18', 0, 7, 9),
+	(14, 'topic test anonyme', '2024-04-18', 0, 7, 13);
 
 -- Listage de la structure de table lucie_forum. user
 CREATE TABLE IF NOT EXISTS `user` (
