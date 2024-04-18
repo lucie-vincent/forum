@@ -324,7 +324,8 @@ class ForumController extends AbstractController implements ControllerInterface{
         $postManager = new PostManager();
         
         // on définit la valeur de user_id et de creationDate
-        $user_id = 0; // A remplacer par le résultat de $_SESSION['user']['id']
+        $user = $_SESSION["user"];
+        // $user_id = 0; // A remplacer par le résultat de $_SESSION['user']['id']
         $creationDate = date("Ymd"); // Date du jour format AAAAMMJJ
 
         // on filtre les données saisies dans le formulaire
@@ -337,7 +338,7 @@ class ForumController extends AbstractController implements ControllerInterface{
                 "content" => $postContent,
                 "creationDate" => $creationDate,
                 "topic_id" => $id,
-                "user_id" => $user_id
+                "user_id" => $user->getId()
             ]);
 
             // on lance le message de réussite

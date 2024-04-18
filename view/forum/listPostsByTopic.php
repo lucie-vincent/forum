@@ -1,8 +1,16 @@
 <?php
     $posts = $result["data"]['posts']; 
     $topic = $result["data"]['topic'];
+    $user = $_SESSION["user"];
     // var_dump($posts);
+
+    
+    //  if($user->getId() === $post->getUser()->getId()) { ?>
+         <!-- } ?> -->
+    
 ?>
+
+
 
 <h1>Posts de <?= $topic->getTitle() ?></h1>
 
@@ -16,11 +24,15 @@ if($posts == NULL) {
             <span>
                 <strong><?= $post->getUser() ?></strong> - Date : <?= $post->getCreationDate() ?>
             </span>
-
-            <p><?= $post ?> - <a href="index.php?ctrl=forum&action=updatePostForm&id=<?=$post->getId()?>">Modifier</a>
-                <a href="index.php?ctrl=forum&action=deletePost&id=<?=$post->getId()?>"> - Supprimer</a>
             
-            </p> 
+            <p>
+                <?= $post ?> 
+                
+
+                    <a href="index.php?ctrl=forum&action=updatePostForm&id=<?=$post->getId()?>"> - Modifier</a>
+                    
+                    <a href="index.php?ctrl=forum&action=deletePost&id=<?=$post->getId()?>"> - Supprimer</a>
+                </p> 
         </div>
 <?php 
     } 

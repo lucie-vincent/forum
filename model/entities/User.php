@@ -113,14 +113,14 @@ final class User extends Entity{
 
 
     public function hasRole($role){
-        var_dump($this->getRole());
+        // var_dump($this->getRole());
         $userRole = json_decode($this->getRole());
         
         // var_dump($userRole);die;
 
         $role = in_array("ROLE_ADMIN", $userRole) ? true : false;
 
-        var_dump($role);die;
+        // var_dump($role);die;
 
     }
 
