@@ -15,9 +15,9 @@ if($categories == NULL) {
 
     <?php if(App\Session::isAdmin()) { ?>
         <a href="index.php?ctrl=forum&action=deleteCategory&id=<?=$category->getId() ?>"> - Supprimer</a>
-    <?php } ?>
+        <?php } ?>
     </p>
-<?php } 
+    <?php } 
 } ?>
 
 

@@ -1,11 +1,7 @@
 <?php
     $posts = $result["data"]['posts']; 
     $topic = $result["data"]['topic'];
-
 ?>
-    
-    
-    
     <h1>Posts de <?= $topic->getTitle() ?></h1>
     
     <?php

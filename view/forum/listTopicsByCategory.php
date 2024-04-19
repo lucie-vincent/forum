@@ -21,7 +21,7 @@ if($topics == NULL){
         </strong>
             
 
-        <?php if(App\Session::getUser() == $topic->getUser()) { ?>
+        <?php if(App\Session::getUser() == $topic->getUser() || App\Session::isAdmin()) { ?>
 
             <a href="index.php?ctrl=forum&action=updateTopicForm&id=<?= $topic->getId() ?>"> - Modifier </a>
             <a href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId() ?>"> - Supprimer </a>

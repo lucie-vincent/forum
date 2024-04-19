@@ -3,14 +3,12 @@ $userInfos= $result['data']['userInfos'];
 $posts= $result['data']['posts'];
 $topics = $result['data']['topics'];
 ?>
-
-<h1>Voir mon profil</h1>
+<h1>Voir le profil de <?=$userInfos->getNickname()?></h1>
 
 <div>
     <h2>Infos générales</h2>
     <p>
         Pseudo : <?= $userInfos->getNickname()?><br>
-        Email : <?= $userInfos->getEmail()?><br>
         Date d'inscription : <?= $userInfos->getRegisterDate()?><br>
     </p>
 </div>
@@ -39,10 +37,4 @@ $topics = $result['data']['topics'];
     </p>
     <?php }
 } ?>
-</div>
-
-<div>
-    <p>
-        <a href="index.php?ctrl=security&action=deleteUserConfirm&id=<?= $userInfos->getId()?>">Supprimer son profil</a>
-    </p>
 </div>
