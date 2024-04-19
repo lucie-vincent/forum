@@ -13,14 +13,13 @@ if($topics == NULL){
     <p>
         <a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>"><?= $topic->getTitle() ?></a> 
         par <strong>
-            <?php if($topic->getUser() == NULL) { ?>
-                Anonyme
-            <?php } else {?>
-            <?= $topic->getUser() ?>
-            <?php } ?>
-        </strong>
+                <?php if($topic->getUser() == NULL) { ?>
+                    Anonyme
+                <?php } else {?>
+                <?= $topic->getUser() ?>
+                <?php } ?>
+            </strong>
             
-
         <?php if(App\Session::getUser() == $topic->getUser() || App\Session::isAdmin()) { ?>
 
             <a href="index.php?ctrl=forum&action=updateTopicForm&id=<?= $topic->getId() ?>"> - Modifier </a>
