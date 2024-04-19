@@ -28,6 +28,19 @@ class TopicManager extends Manager{
         );
     }
 
+    // récupérer les topics d'un utilisateur
+    public function findTopicsByUser($id) {
+        $sql = "SELECT *
+                FROM ".$this->tableName." t
+                    INNER JOIN user u on t.user_id = u.id_user
+                WHERE t.user_id = :id";
+        
+        return  $this->getMultipleResults(
+            DAO::select($sql, ['id' => $id]), 
+            $this->className
+        );
+    }
+
 
     // modifier un topic
     public function updateTopics($data){

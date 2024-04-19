@@ -1,5 +1,7 @@
 <?php
 $userInfos= $result['data']['userInfos'];
+$posts= $result['data']['posts'];
+$topics = $result['data']['topics'];
 ?>
 
 <h1>Voir mon profil</h1>
@@ -9,8 +11,35 @@ $userInfos= $result['data']['userInfos'];
     <p>
         Pseudo : <?= $userInfos->getNickname()?><br>
         Email : <?= $userInfos->getEmail()?><br>
+        Date d'inscription : <?= $userInfos->getRegisterDate()?><br>
     </p>
     <p>
         <a href="index.php?ctrl=security&action=deleteUserConfirm&id=<?= $userInfos->getId()?>">Supprimer son profil</a>
     </p>
+</div>
+
+<div>
+    <h2>Posts rédigés</h2>
+<?php if($posts == null ) {
+    echo "<p>Vous n'avez pas encore rédigé de post.</p>";
+} else {
+    foreach ($posts as $post){ ?>
+    <p>
+        <?=$post?> - <?=$post->getCreationDate()?> dans <strong><?=$post->getTopic()->getTitle()?></strong>
+    </p>
+    <?php }
+} ?>
+</div>
+
+<div>
+    <h2>Topics créés</h2>
+<?php if($topics == null ) {
+    echo "<p>Vous n'avez pas encore rédigé de post.</p>";
+} else {
+    foreach ($topics as $topic){ ?>
+    <p>
+        <?=$topic?> - <?=$topic->getCreationDate()?> dans <strong><?=$topic->getCategory()->getName()?></strong>
+    </p>
+    <?php }
+} ?>
 </div>

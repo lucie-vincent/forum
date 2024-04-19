@@ -140,15 +140,26 @@ class SecurityController extends AbstractController{
 
     public function profile() {
         $id = Session::getUser()->getId();
+        // infos générales
         $userManager = new UserManager();
         $userInfos = $userManager->findOneById($id);
-        
+
+        // posts
+        $postManager = new PostManager();
+        $posts = $postManager->findPostsByUser($id);
+
+        // topics
+        $topicManager = new TopicManager();
+        $topics = $topicManager->findTopicsByUser($id);
+
         // le controller communique avec la vue login
         return [
             "view" => VIEW_DIR."security/profile.php",
             "meta_description" => "Voir son profil",
             "data" => [
-                "userInfos" => $userInfos
+                "userInfos" => $userInfos,
+                "posts" => $posts,
+                "topics" => $topics
             ]
         ];
     }
