@@ -2,7 +2,7 @@
 -- Hôte:                         127.0.0.1
 -- Version du serveur:           8.0.30 - MySQL Community Server - GPL
 -- SE du serveur:                Win64
--- HeidiSQL Version:             12.1.0.6537
+-- HeidiSQL Version:             12.6.0.6765
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -19,7 +19,7 @@
 CREATE DATABASE IF NOT EXISTS `lucie_forum` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `lucie_forum`;
 
--- Listage de la structure de table lucie_forum. category
+-- Listage de la structure de la table lucie_forum. category
 CREATE TABLE IF NOT EXISTS `category` (
   `id_category` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
@@ -32,7 +32,7 @@ INSERT INTO `category` (`id_category`, `name`) VALUES
 	(7, 'Reviews'),
 	(8, 'Crowdfounding');
 
--- Listage de la structure de table lucie_forum. post
+-- Listage de la structure de la table lucie_forum. post
 CREATE TABLE IF NOT EXISTS `post` (
   `id_post` int NOT NULL AUTO_INCREMENT,
   `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -41,8 +41,10 @@ CREATE TABLE IF NOT EXISTS `post` (
   `user_id` int NOT NULL,
   PRIMARY KEY (`id_post`) USING BTREE,
   KEY `topic_id` (`topic_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `FK_post_topic` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id_topic`),
+  CONSTRAINT `FK_post_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table lucie_forum.post : ~8 rows (environ)
 INSERT INTO `post` (`id_post`, `content`, `creationDate`, `topic_id`, `user_id`) VALUES
@@ -55,7 +57,7 @@ INSERT INTO `post` (`id_post`, `content`, `creationDate`, `topic_id`, `user_id`)
 	(19, 'nah it&#039;s not worth it imo', '2024-04-18', 13, 10),
 	(20, 'topic test anonyme', '2024-04-18', 14, 13);
 
--- Listage de la structure de table lucie_forum. topic
+-- Listage de la structure de la table lucie_forum. topic
 CREATE TABLE IF NOT EXISTS `topic` (
   `id_topic` int NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL DEFAULT '',
@@ -65,8 +67,10 @@ CREATE TABLE IF NOT EXISTS `topic` (
   `user_id` int NOT NULL,
   PRIMARY KEY (`id_topic`),
   KEY `category_id` (`category_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `FK_topic_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id_category`),
+  CONSTRAINT `FK_topic_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table lucie_forum.topic : ~4 rows (environ)
 INSERT INTO `topic` (`id_topic`, `title`, `creationDate`, `isLocked`, `category_id`, `user_id`) VALUES
@@ -75,23 +79,24 @@ INSERT INTO `topic` (`id_topic`, `title`, `creationDate`, `isLocked`, `category_
 	(13, 'Vindication is the worst !!', '2024-04-18', 0, 7, 9),
 	(14, 'topic test anonyme', '2024-04-18', 0, 7, 13);
 
--- Listage de la structure de table lucie_forum. user
+-- Listage de la structure de la table lucie_forum. user
 CREATE TABLE IF NOT EXISTS `user` (
   `id_user` int NOT NULL AUTO_INCREMENT,
   `nickname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0',
   `email` varchar(255) NOT NULL DEFAULT '0',
   `password` varchar(255) NOT NULL DEFAULT '0',
   `role` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '["ROLE_USER"]',
+  `registerDate` date NOT NULL,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `nickname` (`nickname`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table lucie_forum.user : ~3 rows (environ)
-INSERT INTO `user` (`id_user`, `nickname`, `email`, `password`, `role`) VALUES
-	(1, 'lulu', 'lucie@exemple.com', '$2y$10$zIs2ZA.BuKpKwEreqC63Wu7xt2tuFDkQ6vrskk6QZhpPJXepxWW2K', '["ROLE_USER", "ROLE_ADMIN"]'),
-	(8, 'user 1', 'user1@exemple.com', '$2y$10$/FV62WEv1KUY.XJlTX3s2OudpFguwThIcUrD/vcn4cATtS0cRU7t.', '["ROLE_USER"]'),
-	(9, 'user2', 'user2@example.com', '$2y$10$tNMhzxtQkUt9RvZRGIeRq.nuQMM.CUYG8R/BFsIRBW/YsDlJLRhHa', '["ROLE_USER"]');
+INSERT INTO `user` (`id_user`, `nickname`, `email`, `password`, `role`, `registerDate`) VALUES
+	(1, 'lulu', 'lucie@exemple.com', '$2y$10$zIs2ZA.BuKpKwEreqC63Wu7xt2tuFDkQ6vrskk6QZhpPJXepxWW2K', '["ROLE_USER", "ROLE_ADMIN"]', '2024-04-17'),
+	(8, 'user 1', 'user1@exemple.com', '$2y$10$/FV62WEv1KUY.XJlTX3s2OudpFguwThIcUrD/vcn4cATtS0cRU7t.', '["ROLE_USER"]', '2024-04-18'),
+	(9, 'user2', 'user2@example.com', '$2y$10$tNMhzxtQkUt9RvZRGIeRq.nuQMM.CUYG8R/BFsIRBW/YsDlJLRhHa', '["ROLE_USER"]', '2024-04-18');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

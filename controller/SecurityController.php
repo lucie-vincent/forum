@@ -25,7 +25,8 @@ class SecurityController extends AbstractController{
             $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_VALIDATE_EMAIL);
             $pass1 = filter_input(INPUT_POST, "pass1", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $pass2 = filter_input(INPUT_POST, "pass2", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
+            // on crée la date du jour
+            $registerDate = date("Ymd"); // Date du jour format AAAAMMJJ
 
             if($nickname && $email && $pass1 && $pass2){
                 // on récupère l'email pour vérifier l'existance en BDD de l'utilisateur
@@ -43,8 +44,11 @@ class SecurityController extends AbstractController{
                         $userManager->add([
                             "nickname" => $nickname,
                             "email" => $email,
-                            "password" => password_hash($pass1, PASSWORD_DEFAULT)
+                            "password" => password_hash($pass1, PASSWORD_DEFAULT),
+                            "registerDate" => $registerDate
                         ]);
+
+                        // var_dump($userManager);die;
                     
                         // on indique à l'utilisateur que son compte a bien été créé
                         Session::addFlash("success", "Le compte a bien été créé !");
