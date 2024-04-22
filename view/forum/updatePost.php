@@ -10,7 +10,7 @@
     $_SESSION['user']
 -->
 <form action="index.php?ctrl=forum&action=updatePost&id=<?=$id?>" method="POST">
-    <textarea name="content" id="content" cols="30" rows="10"><?= $post->getContent()?></textarea>
+    <textarea class="post" name="content" id="content" cols="30" rows="10"><?= $post->getContent()?></textarea>
 
     <input type="submit" value="Modifier">
 </form>

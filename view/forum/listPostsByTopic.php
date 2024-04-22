@@ -10,7 +10,7 @@ if($posts == NULL) {
     echo " <p> Il n'y a pas de post associé à " .  $topic->getTitle() . "  </p> ";
 } else {
     foreach($posts as $post){ ?>
-        <div>
+        <div class="text">
             <span>
                 <strong>
                     <?php if($post->getUser() == NULL) { ?>
@@ -27,14 +27,14 @@ if($posts == NULL) {
                 
                 <?php  if(App\Session::getUser() == $post->getUser()) { ?>
                     
-                    <a href="index.php?ctrl=forum&action=updatePostForm&id=<?=$post->getId()?>"> - Modifier</a>
+                    <a class="modify" href="index.php?ctrl=forum&action=updatePostForm&id=<?=$post->getId()?>"> - Modifier</a>
                     
-                    <a href="index.php?ctrl=forum&action=deletePost&id=<?=$post->getId()?>"> - Supprimer</a>
+                    <a class="delete" href="index.php?ctrl=forum&action=deletePost&id=<?=$post->getId()?>"> - Supprimer</a>
 
                 <?php } ?>
 
             </p> 
-        </div>
+        </div><hr>
 <?php 
     } 
 }

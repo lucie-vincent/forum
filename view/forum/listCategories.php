@@ -10,13 +10,15 @@ if($categories == NULL) {
     echo " <p> Il n'y a pas de catégories. </p>";
 } else {
     foreach($categories as $category){ ?>
-    <p>
-        <a href="index.php?ctrl=forum&action=listTopicsByCategory&id=<?= $category->getId() ?>"><?= $category->getName() ?></a>
-
-    <?php if(App\Session::isAdmin()) { ?>
-        <a href="index.php?ctrl=forum&action=deleteCategory&id=<?=$category->getId() ?>"> - Supprimer</a>
-        <?php } ?>
-    </p>
+    <div class="category">
+        <p>
+            <a href="index.php?ctrl=forum&action=listTopicsByCategory&id=<?= $category->getId() ?>"><?= $category->getName() ?></a>
+            
+            <?php if(App\Session::isAdmin()) { ?>
+                <a class="delete" href="index.php?ctrl=forum&action=deleteCategory&id=<?=$category->getId() ?>"> - Supprimer</a>
+            <?php } ?>
+        </p>
+    </div><hr>
     <?php } 
 } ?>
 
