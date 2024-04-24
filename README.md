@@ -14,3 +14,10 @@ Il y a également un rôle administrateur et un rôle utilisateur dont les autor
 - Création de Posts : Les utilisateurs connectés peuvent ajouter des posts à un topic existant.
 - Gestion des Profils : Les utilisateurs peuvent accéder à leur profil et voir les profils d'autres utilisateurs. Ils peuvent supprimer leur compte.
 - Gestion des Sessions : Les sessions sont utilisées pour maintenir l'état de connexion de l'utilisateur entre les pages.
+
+## Technologies utilisées
+
+- PHP 7
+- MySQL
+- HTML
+- CSS 
